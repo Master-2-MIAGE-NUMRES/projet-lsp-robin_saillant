@@ -1,9 +1,21 @@
-public class SavingsAccount extends BankAccount {
+class SavingsAccount implements BankAccount {
+    private double balance;
+
     public SavingsAccount(double initialBalance) {
-        super(initialBalance);
+        this.balance = initialBalance;
     }
+
     @Override
-    public void withdraw(double amount) {
-        throw new UnsupportedOperationException("Les retraits ne sont pas autorisés sur un compte d'épargne.");
+    public void deposit(double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Le montant du dépôt doit être positif.");
+        }
+        balance += amount;
+        System.out.println("Dépôt de " + amount + " effectué. Nouveau solde : " + balance);
+    }
+
+    @Override
+    public double getBalance() {
+        return balance;
     }
 }

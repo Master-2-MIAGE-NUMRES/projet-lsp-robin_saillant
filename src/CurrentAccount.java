@@ -1,7 +1,19 @@
-public class CurrentAccount extends BankAccount {
+class CurrentAccount implements WithdrawableAccount {
+    private double balance;
+
     public CurrentAccount(double initialBalance) {
-        super(initialBalance);
+        this.balance = initialBalance;
     }
+
+    @Override
+    public void deposit(double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Le montant du dépôt doit être positif.");
+        }
+        balance += amount;
+        System.out.println("Dépôt de " + amount + " effectué. Nouveau solde : " + balance);
+    }
+
     @Override
     public void withdraw(double amount) {
         if (amount <= 0) {
@@ -12,5 +24,10 @@ public class CurrentAccount extends BankAccount {
         }
         balance -= amount;
         System.out.println("Retrait de " + amount + " effectué. Nouveau solde : " + balance);
+    }
+
+    @Override
+    public double getBalance() {
+        return balance;
     }
 }
